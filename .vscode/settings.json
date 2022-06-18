@@ -8,5 +8,6 @@
     "resources/views/account/messenger/messages",
     "public/assets/plugins/select2/js/i18n",
     "public/assets/plugins/bootstrap-fileinput/js/locales"
-  ]
+  ],
+  "i18n-ally.keystyle": "nested"
 }

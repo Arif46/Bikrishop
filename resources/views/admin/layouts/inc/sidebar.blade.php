@@ -104,7 +104,49 @@
 							</ul>
 						</li>
 					@endif
-					
+					{{----Address Menu Start-------------}}
+
+					@if (
+						auth()->user()->can('division-list')
+						// || auth()->user()->can('category-list')
+						// || auth()->user()->can('picture-list')
+						// || auth()->user()->can('post-type-list')
+						// || auth()->user()->can('field-list')
+						|| userHasSuperAdminPermissions()
+					)
+						<li class="sidebar-item">
+							<a href="#" class="sidebar-link has-arrow waves-effect waves-dark">
+								<i data-feather="list"></i> <span class="hide-menu">{{ trans('admin.address') }}</span>
+							</a>
+							<ul aria-expanded="false" class="collapse first-level">
+								@if (auth()->user()->can('division-list') || userHasSuperAdminPermissions())
+									<li class="sidebar-item">
+										<a href="{{ admin_url('divisions') }}" class="sidebar-link">
+											<i class="mdi mdi-adjust"></i>
+											<span class="hide-menu">{{ trans('admin.division') }}</span>
+										</a>
+									</li>
+								@endif
+								{{-- @if (auth()->user()->can('post-type-list') || userHasSuperAdminPermissions())
+									<li class="sidebar-item">
+										<a href="{{ admin_url('p_types') }}" class="sidebar-link">
+											<i class="mdi mdi-adjust"></i>
+											<span class="hide-menu">{{ trans('admin.listing types') }}</span>
+										</a>
+									</li>
+								@endif --}}
+								{{-- @if (auth()->user()->can('field-list') || userHasSuperAdminPermissions())
+									<li class="sidebar-item">
+										<a href="{{ admin_url('custom_fields') }}" class="sidebar-link">
+											<i class="mdi mdi-adjust"></i>
+											<span class="hide-menu">{{ trans('admin.custom fields') }}</span>
+										</a>
+									</li>
+								@endif --}}
+							</ul>
+						</li>
+					@endif
+					{{----start Menu End-------}}
 					@if (
 						auth()->user()->can('user-list')
 						|| auth()->user()->can('role-list')

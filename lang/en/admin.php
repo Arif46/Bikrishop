@@ -80,6 +80,10 @@ return [
     'users'              => 'users',
     'plugin'             => 'plugin',
     'plugins'            => 'plugins',
+		'division'          => 'Division',
+    'address' => 'Address',
+		"enter_division_name" => 'Enter the Division name',
+		'divisions' => 'divisions',
 
     /*
     |--------------------------------------------------------------------------

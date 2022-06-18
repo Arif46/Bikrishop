@@ -1779,4 +1779,8 @@ Note:
     'email_validator_filter_hint' => 'Uses PHP\'s <code>filter_var()</code> function.',
     'intl_extension_missing_error_message_for_email_validation' => 'The PHP intl extension is required for email validation using DNS or Spoof.',
     'activate_children' => 'Activate Children',
+    'division'          => 'Division',
+    'address' => 'Address',
+    "enter_division_name" => 'Enter the Division name',
+    'divisions' => 'divisions',
 ];

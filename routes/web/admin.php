@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CategoryFieldController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\DivisionController;
 use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FieldController;
@@ -106,6 +107,7 @@ Route::middleware(['admin', 'clearance', 'banned.user', 'no.http.cache'])
 		PanelRoutes::resource('categories/{catId}/custom_fields', CategoryFieldController::class);
 		PanelRoutes::resource('cities', CityController::class);
 		PanelRoutes::resource('countries', CountryController::class);
+		PanelRoutes::resource('divisions', DivisionController::class);
 		PanelRoutes::resource('countries/{countryCode}/cities', CityController::class);
 		PanelRoutes::resource('countries/{countryCode}/admins1', SubAdmin1Controller::class);
 		PanelRoutes::resource('currencies', CurrencyController::class);
