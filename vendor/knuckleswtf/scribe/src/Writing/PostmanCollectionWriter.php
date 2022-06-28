@@ -101,13 +101,27 @@ class PostmanCollectionWriter
 
     protected function generateEndpointItem(OutputEndpointData $endpoint): array
     {
+        $method = $endpoint->httpMethods[0];
+
+        $bodyParameters = empty($endpoint->bodyParameters) ? null : $this->getBodyData($endpoint);
+
+        if ((in_array('PUT', $endpoint->httpMethods) || in_array('PATCH', $endpoint->httpMethods))
+            && isset($bodyParameters['formdata'])) {
+            $method = 'POST';
+            $bodyParameters['formdata'][] = [
+                'key' => '_method',
+                'value' => $endpoint->httpMethods[0],
+                'type' => 'text',
+            ];
+        }
+
         $endpointItem = [
             'name' => $endpoint->metadata->title !== '' ? $endpoint->metadata->title : $endpoint->uri,
             'request' => [
                 'url' => $this->generateUrlObject($endpoint),
-                'method' => $endpoint->httpMethods[0],
+                'method' => $method,
                 'header' => $this->resolveHeadersForEndpoint($endpoint),
-                'body' => empty($endpoint->bodyParameters) ? null : $this->getBodyData($endpoint),
+                'body' => $bodyParameters,
                 'description' => $endpoint->metadata->description,
             ],
             'response' => $this->getResponses($endpoint),
@@ -129,6 +143,9 @@ class PostmanCollectionWriter
             case 'multipart/form-data':
                 $inputMode = 'formdata';
                 break;
+            case 'application/x-www-form-urlencoded':
+                $inputMode = 'urlencoded';
+                break;
             case 'application/json':
             default:
                 $inputMode = 'raw';
@@ -138,7 +155,10 @@ class PostmanCollectionWriter
 
         switch ($inputMode) {
             case 'formdata':
-                $body[$inputMode] = $this->getFormDataParams($endpoint->cleanBodyParameters);
+            case 'urlencoded':
+                $body[$inputMode] = $this->getFormDataParams(
+                    $endpoint->cleanBodyParameters, null, $endpoint->bodyParameters
+                );
                 foreach ($endpoint->fileParameters as $key => $value) {
                     while (is_array($value)) {
                         $keys = array_keys($value);
@@ -169,11 +189,11 @@ class PostmanCollectionWriter
     /**
      * Format form-data parameters correctly for arrays eg. data[item][index] = value
      */
-    protected function getFormDataParams(array $array, ?string $key = null): array
+    protected function getFormDataParams(array $paramsKeyValue, ?string $key = null, array $paramsFullDetails = []): array
     {
         $body = [];
 
-        foreach ($array as $index => $value) {
+        foreach ($paramsKeyValue as $index => $value) {
             $index = $key ? ($key . '[' . $index . ']') : $index;
 
             if (!is_array($value)) {
@@ -181,6 +201,7 @@ class PostmanCollectionWriter
                     'key' => $index,
                     'value' => $value,
                     'type' => 'text',
+                    'description' => $paramsFullDetails[$index]->description ?? '',
                 ];
 
                 continue;
@@ -311,8 +332,7 @@ class PostmanCollectionWriter
             foreach ($response->headers as $header => $value) {
                 $headers[] = [
                     'key' => $header,
-                    // Todo remove array support in future
-                    'value' => is_array($value) ? implode('; ', $value) : $value
+                    'value' => $value
                 ];
             }
 
