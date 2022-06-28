@@ -12,6 +12,40 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Removed
 
+## 3.33.0 (27 June 2022)
+### Added
+- Include description in Postman collection for formdata body parameters ([10faa500](https://github.com/knuckleswtf/scribe/commit/10faa500e36e02d4efcecf8ad5e1d91ba1c7728d)))
+- Support for attributes in `@apiResource` ([8b8bc6b0](https://github.com/knuckleswtf/scribe/commit/8b8bc6b04242ea5d35916db84e2a7cbe73e0cef5)))
+
+
+## 3.32.0 (23 June 2022)
+### Modified
+- Improved code blocks hiding ([#486](https://github.com/knuckleswtf/scribe/pull/486)))
+
+
+## 3.31.0 (16 June 2022)
+### Modified
+- Postman collection: replace multipart PUT/PATCH requests with POST & `_method` ([#480](https://github.com/knuckleswtf/scribe/pull/480)))
+
+### Fixed
+- Fix logo image partially covered by sidebar ([#481](https://github.com/knuckleswtf/scribe/pull/481)))
+
+
+## 3.30.0 (11 June 2022)
+### Added
+- Support for more inline validator forms (`$request->validate(...)` without assignment, and `$this->validate($request, ...)`) ([29940c2e](https://github.com/knuckleswtf/scribe/commit/29940c2e05c8035a1ab85d9482c2335e1747ab41)))
+
+### Fixed
+- Fix incorrect public_path check on Lumen ([64ad2f6e](https://github.com/knuckleswtf/scribe/commit/64ad2f6e059bea03e9ba5b209818e916758ca36a)))
+
+## 3.29.1 (22 May 2022)
+### Fixed
+- Make output path for `laravel` type configurable ([48b2b90](https://github.com/knuckleswtf/scribe/commit/48b2b90580f92dbe2fa5ebdad207fa082c875532)))
+
+## 3.29.0 (22 May 2022)
+### Added
+- 🎉🎉 Support multiple docs with the `--config` flag ([#472](https://github.com/knuckleswtf/scribe/pull/472), [cc6c95e](https://github.com/knuckleswtf/scribe/commit/cc6c95eed2a999a640666eab8b7dad1b417c9aca)))
+
 ## 3.28.0 (14 May 2022)
 ### Added
 - Add `--no-upgrade-check` CLI option ([6950f4b](https://github.com/knuckleswtf/scribe/commit/6950f4bfc8b270f47f0318124a5610f2abd95182))
